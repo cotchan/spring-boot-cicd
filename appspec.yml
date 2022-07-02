@@ -1,9 +1,9 @@
 version: 0.0
 os: linux
 files:
-  - source: /
-    destination: /home/ubuntu/springboot-cicd/ # S3에서 받아올 프로젝트의 위치를 지정
-    overwrite: yes
+  - source: / # 현재 프로젝트의 루트 경로
+    destination: /home/ubuntu/springboot-cicd/ # S3에서 받아올 프로젝트의 위치를 지정 (EC2 내부의 어떤 디렉토리에 전달 ?)
+    overwrite: yes # 덮어쓰기 할 것인지?
 
 permissions:
   - object: /
@@ -20,5 +20,8 @@ hooks: # CodeDeploy의 배포에는 각 단계 별 수명 주기가 있는데, �
       timeout: 180
       runas: ubuntu
     - location: scripts/switch.sh
+      timeout: 180
+      runas: ubuntu
+    - location: scripts/stop.sh
       timeout: 180
       runas: ubuntu
